@@ -108,7 +108,7 @@ export default function HraPage() {
                 key={c}
                 type="button"
                 onClick={() => setCityType(c)}
-                className={`rounded-full px-4 py-2 text-sm capitalize transition-colors ${
+                className={`rounded-full px-4 py-3 text-sm capitalize transition-colors ${
                   cityType === c
                     ? 'bg-foreground text-background'
                     : 'text-foreground/70'
