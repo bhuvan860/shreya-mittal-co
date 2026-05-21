@@ -56,7 +56,6 @@ export function Navbar() {
           <Link
             href="/"
             className="group flex shrink-0 items-center gap-2.5"
-            aria-label={`${FIRM.name} home`}
           >
             <BrandMark size={32} className="shrink-0 transition-transform duration-500 group-hover:rotate-12 md:h-9 md:w-9" />
             <div className="flex flex-col leading-none">
