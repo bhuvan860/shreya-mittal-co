@@ -1,0 +1,15 @@
+/node_modules
+/.next
+/out
+/build
+.DS_Store
+*.log
+.env*.local
+.vercel
+next-env.d.ts
+.turbo
+.idea
+.vscode
+
+# Autonomous loop working files (local-only state, not for commit)
+/.loop
