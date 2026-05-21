@@ -5,6 +5,9 @@ import { NOTES, getNote } from '@/lib/notes';
 import { INSIGHT_BODIES } from '@/lib/insights-content';
 import { FIRM } from '@/lib/firm';
 
+// JSON-LD (Article + BreadcrumbList) is emitted by NoteLayout — don't
+// duplicate it here.
+
 interface Params { slug: string }
 
 export async function generateStaticParams() {
@@ -28,49 +31,5 @@ export default async function InsightPage({ params }: { params: Promise<Params> 
   const body = INSIGHT_BODIES[slug];
   if (!note || !body) notFound();
 
-  const url = `${FIRM.domain}/insights/${note.slug}`;
-
-  const article = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: note.title,
-    description: note.lede,
-    url,
-    inLanguage: note.language === 'hi' ? 'hi-IN' : 'en-IN',
-    datePublished: note.publishedAt,
-    articleSection: note.category,
-    author: {
-      '@type': 'Person',
-      name: FIRM.founder.name,
-      jobTitle: FIRM.founder.role,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: FIRM.legalName,
-      url: FIRM.domain,
-    },
-  };
-
-  const breadcrumb = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Insights', item: `${FIRM.domain}/insights` },
-      { '@type': 'ListItem', position: 2, name: note.title, item: url },
-    ],
-  };
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-      <NoteLayout note={note}>{body}</NoteLayout>
-    </>
-  );
+  return <NoteLayout note={note}>{body}</NoteLayout>;
 }

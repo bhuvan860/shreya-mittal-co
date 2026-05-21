@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { FIRM } from '@/lib/firm';
 import { formatNoteDate, type NoteEntry } from '@/lib/notes';
+import { getService } from '@/lib/services';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -11,6 +12,9 @@ interface Props {
 
 export function NoteLayout({ note, children }: Props) {
   const isHindi = note.language === 'hi';
+  const relatedService = note.relatedServiceSlug
+    ? getService(note.relatedServiceSlug)
+    : undefined;
 
   // Article JSON-LD (brief §9)
   const articleJsonLd = {
@@ -95,6 +99,18 @@ export function NoteLayout({ note, children }: Props) {
           <p className="mt-10 text-xs uppercase tracking-eyebrow text-foreground/55">
             Written by {FIRM.founder.name}
           </p>
+
+          {relatedService && (
+            <p className="mt-3 text-xs uppercase tracking-eyebrow text-foreground/55">
+              Related practice ·{' '}
+              <Link
+                href={`/services/${relatedService.slug}`}
+                className="text-accent transition-colors hover:text-accent/80"
+              >
+                {relatedService.short}
+              </Link>
+            </p>
+          )}
         </div>
       </header>
 
