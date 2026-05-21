@@ -87,7 +87,14 @@ export function NoteLayout({ note, children }: Props) {
 
           <h1
             className="heading-display mt-6 max-w-4xl text-[clamp(2rem,5vw,4rem)]"
-            style={isHindi ? { fontFamily: 'var(--font-serif)' } : undefined}
+            style={
+              isHindi
+                ? {
+                    fontFamily:
+                      'var(--font-serif-devanagari), var(--font-serif)',
+                  }
+                : undefined
+            }
           >
             {note.title}
           </h1>

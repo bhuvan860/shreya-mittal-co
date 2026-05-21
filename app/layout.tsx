@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Playfair_Display, Source_Serif_4 } from 'next/font/google';
+import {
+  Inter,
+  Playfair_Display,
+  Source_Serif_4,
+  Noto_Serif_Devanagari,
+} from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
@@ -25,6 +30,19 @@ const sourceSerif = Source_Serif_4({
   display: 'swap',
   variable: '--font-editorial',
   weight: ['400', '500', '600'],
+});
+
+/**
+ * Devanagari serif for Hindi article headlines. Playfair Display has no
+ * Devanagari glyphs, so without this the browser swaps to a system Indic
+ * font mid-render — that produced a 0.258 CLS on the Hindi insight slug
+ * before this was added (see PRF-008).
+ */
+const notoDevanagari = Noto_Serif_Devanagari({
+  subsets: ['devanagari', 'latin'],
+  display: 'swap',
+  variable: '--font-serif-devanagari',
+  weight: ['500', '600'],
 });
 
 export const viewport: Viewport = {
@@ -110,7 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-IN"
       suppressHydrationWarning
-      className={`${inter.variable} ${playfair.variable} ${sourceSerif.variable}`}
+      className={`${inter.variable} ${playfair.variable} ${sourceSerif.variable} ${notoDevanagari.variable}`}
     >
       <body className="min-h-screen bg-background text-foreground antialiased">
         <ThemeProvider>
