@@ -105,7 +105,7 @@ export function NoteLayout({ note, children }: Props) {
               Related practice ·{' '}
               <Link
                 href={`/services/${relatedService.slug}`}
-                className="text-accent transition-colors hover:text-accent/80"
+                className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:text-accent/80 hover:decoration-accent"
               >
                 {relatedService.short}
               </Link>
