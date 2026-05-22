@@ -13,5 +13,3 @@ next-env.d.ts
 
 # Autonomous loop working files (local-only state, not for commit)
 /.loop
-
-.vercel
